@@ -6,7 +6,6 @@ output:
     toc_float: true
 author: Monya baker
 date: "25 May 2016 "
-bibliography: references.bib
 link-citations: yes
 ---
 \
@@ -48,3 +47,4 @@ Citation to my paper @cardona2014 and @cardona2019
 
 # References
 
+ghp_29teScJEv2mXnCKKybzyJZyVywlyeP2nGUci
