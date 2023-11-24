@@ -1,0 +1,53 @@
+---
+title: "RNotebookExample"
+output: html_document
+date: "2023-11-24"
+---
+
+```{r load-data, message = FALSE, echo=FALSE}
+#load tidyverse library
+library(tidyverse) # used for data manipulation
+library(rmarkdown) # used for paged_table function
+library(kableExtra) # used for table
+library(ggpubr) #used for ggarrange function 
+library(dplyr)
+
+#read file into R
+pop_data <- read_csv("data/gapminder_data.csv")
+
+#create a table with data from European countries in 2007 showing the countries 
+#with the largest life expectancy at the top 
+euro_data_tbl <- pop_data %>% 
+                    filter(continent == "Europe" & year == 2007) %>% 
+                    select(-continent, -year) %>% 
+                    arrange(desc(lifeExp)) %>% 
+                    rename(Country = country, "Population Size" = pop, 
+                      "Life Expectancy" = lifeExp, "GDP" = gdpPercap)
+    
+```
+
+
+```{R kbl-table, echo=FALSE}
+print("Bootstraps")
+euro_data_tbl %>%  kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  scroll_box(width = "100%", height = "200px")
+
+print("Paper")
+euro_data_tbl %>%  kbl() %>%
+  kable_paper("hover", full_width = F) %>%
+  scroll_box(width = "100%", height = "200px") 
+
+paged_table(euro_data_tbl)
+```
+
+```{R plot, message=FALSE, echo=FALSE}
+library(ggplot2)
+
+x <- ggplot(pop_data, aes(continent, pop)) +
+  geom_violin() +
+  scale_y_continuous(trans='log2') +
+  
+
+x
+```
